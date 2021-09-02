@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 )
 
 func main() {
@@ -43,6 +44,14 @@ func main() {
 
 	fmt.Println(data["name"])
 	fmt.Println(data["breakfast"])
+
+	//casting empty variable interface
+	secret = 2
+	var number = secret.(int) * 10
+	fmt.Println(secret, "multiplied by 10 is :", number)
+	secret = []string{"apple", "durian", "rambutan"}
+	var fruits = strings.Join(secret.([]string), ",")
+	fmt.Println(fruits, "is my favorite fruits")
 }
 
 type hitung interface {
