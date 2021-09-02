@@ -19,6 +19,9 @@ func main() {
 
 	s1.changeName2("ethan hunt")
 	fmt.Println("s2 after change name 2 : ", s1.name)
+
+	var s2 = &student{"ethan", 23}
+	s2.sayHello()
 }
 
 type student struct {
