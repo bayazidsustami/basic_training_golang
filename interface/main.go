@@ -23,6 +23,17 @@ func main() {
 	fmt.Println("Luas		:", bangunRuang.luas())
 	fmt.Println("keliling	:", bangunRuang.keliling())
 	fmt.Println("Volume		:", bangunRuang.volume())
+
+	fmt.Println("=====empty interface=====")
+	var secret interface{}
+	secret = "ethan hunt"
+	fmt.Println(secret)
+
+	secret = []string{"apple", "manggo", "banana"}
+	fmt.Println(secret)
+
+	secret = 12.4
+	fmt.Println(secret)
 }
 
 type hitung interface {
