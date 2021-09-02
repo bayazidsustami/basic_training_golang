@@ -16,8 +16,18 @@ func main() {
 
 	fmt.Println("nilai varible : ", reflectValue.Interface())
 
-	var s1 = &student{Name: "wick", Age: 20}
+	var s1 = &student{Name: "jhon wick", Age: 20}
 	s1.getPropertyInfo()
+
+	fmt.Println("name :", s1.Name)
+
+	var structReflectvalue = reflect.ValueOf(s1)
+	var method = structReflectvalue.MethodByName("SetName")
+	method.Call([]reflect.Value{
+		reflect.ValueOf("wick"),
+	})
+
+	fmt.Println("name :", s1.Name)
 }
 
 type student struct {
@@ -40,4 +50,8 @@ func (s *student) getPropertyInfo() {
 		fmt.Println("nilai	:", reflectValue.Field(i).Interface())
 		fmt.Println("")
 	}
+}
+
+func (s *student) SetName(name string) {
+	s.Name = name
 }
