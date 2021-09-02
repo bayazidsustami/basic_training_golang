@@ -13,4 +13,6 @@ func main() {
 	if reflectValue.Kind() == reflect.Int {
 		fmt.Println("nilai variable : ", reflectValue.Int())
 	}
+
+	fmt.Println("nilai varible : ", reflectValue.Interface())
 }
