@@ -13,6 +13,12 @@ func main() {
 
 	var name = s1.getNameAt(2)
 	fmt.Println("Nama panggilan", name)
+
+	s1.changeName1("jason bourne")
+	fmt.Println("s1 after change name : ", s1.name)
+
+	s1.changeName2("ethan hunt")
+	fmt.Println("s2 after change name 2 : ", s1.name)
 }
 
 type student struct {
@@ -32,4 +38,14 @@ func (s student) sayHello() {
 
 func (s student) getNameAt(i int) string {
 	return strings.Split(s.name, " ")[i-1]
+}
+
+func (s student) changeName1(name string) {
+	fmt.Println("-------> on ChangeName1, name change to ", name)
+	s.name = name
+}
+
+func (s *student) changeName2(name string) {
+	fmt.Println("-------> on ChangeName2, name change to ", name)
+	s.name = name
 }
