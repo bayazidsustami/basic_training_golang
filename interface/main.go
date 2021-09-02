@@ -13,10 +13,16 @@ func main() {
 	fmt.Println("Keliling	:", bangunDatar.keliling())
 
 	bangunDatar = lingkaran{14.0}
-	fmt.Println("=====lingkarang")
+	fmt.Println("=====lingkaran")
 	fmt.Println("Luas		:", bangunDatar.luas())
 	fmt.Println("Keliling	:", bangunDatar.keliling())
 	fmt.Println("jari-jari	:", bangunDatar.(lingkaran).jariJari())
+
+	var bangunRuang hitung1d = &kubus{4}
+	fmt.Println("=====lingkaran")
+	fmt.Println("Luas		:", bangunRuang.luas())
+	fmt.Println("keliling	:", bangunRuang.keliling())
+	fmt.Println("Volume		:", bangunRuang.volume())
 }
 
 type hitung interface {
@@ -50,4 +56,34 @@ func (p persegi) luas() float64 {
 
 func (p persegi) keliling() float64 {
 	return p.sisi * 4
+}
+
+type hitung2d interface {
+	luas() float64
+	keliling() float64
+}
+
+type hitung3d interface {
+	volume() float64
+}
+
+type hitung1d interface {
+	hitung2d
+	hitung3d
+}
+
+type kubus struct {
+	sisi float64
+}
+
+func (k *kubus) volume() float64 {
+	return math.Pow(k.sisi, 3)
+}
+
+func (k *kubus) luas() float64 {
+	return math.Pow(k.sisi, 2) * 6
+}
+
+func (k *kubus) keliling() float64 {
+	return k.sisi * 12
 }
