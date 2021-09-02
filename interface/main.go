@@ -52,6 +52,15 @@ func main() {
 	secret = []string{"apple", "durian", "rambutan"}
 	var fruits = strings.Join(secret.([]string), ",")
 	fmt.Println(fruits, "is my favorite fruits")
+
+	secret = &person{name: "charlie", age: 20}
+	var name = secret.(*person).name
+	fmt.Println(name, "was going to school")
+}
+
+type person struct {
+	name string
+	age  int
 }
 
 type hitung interface {
