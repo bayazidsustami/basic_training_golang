@@ -15,4 +15,29 @@ func main() {
 	}
 
 	fmt.Println("nilai varible : ", reflectValue.Interface())
+
+	var s1 = &student{Name: "wick", Age: 20}
+	s1.getPropertyInfo()
+}
+
+type student struct {
+	Name string
+	Age  int
+}
+
+func (s *student) getPropertyInfo() {
+	var reflectValue = reflect.ValueOf(s)
+
+	if reflectValue.Kind() == reflect.Ptr {
+		reflectValue = reflectValue.Elem()
+	}
+
+	var reflectType = reflectValue.Type()
+
+	for i := 0; i < reflectValue.NumField(); i++ {
+		fmt.Println("name	:", reflectType.Field(i).Name)
+		fmt.Println("Tipe data :", reflectType.Field(i).Type)
+		fmt.Println("nilai	:", reflectValue.Field(i).Interface())
+		fmt.Println("")
+	}
 }
