@@ -66,6 +66,16 @@ func main() {
 	for _, each := range persons {
 		fmt.Println(each["name"], "age is : ", each["age"])
 	}
+
+	var fruites = []interface{}{
+		map[string]interface{}{"name": "strawberry", "total": 10},
+		[]string{"manggo", "apple", "papaya"},
+		"orange",
+	}
+
+	for _, each := range fruites {
+		fmt.Println(each)
+	}
 }
 
 type person struct {
