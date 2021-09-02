@@ -56,6 +56,16 @@ func main() {
 	secret = &person{name: "charlie", age: 20}
 	var name = secret.(*person).name
 	fmt.Println(name, "was going to school")
+
+	var persons = []map[string]interface{}{
+		{"name": "wick", "age": 20},
+		{"name": "jhon", "age": 19},
+		{"name": "charlie", "age": 18},
+	}
+
+	for _, each := range persons {
+		fmt.Println(each["name"], "age is : ", each["age"])
+	}
 }
 
 type person struct {
