@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	. "visibility-modifier/library"
+	"visibility-modifier/library"
 )
 
 func main() {
-	SayHello("jhon")
+	library.SayHello("jhon")
 
-	var s1 = Student{Name: "ethan", Grade: 22}
+	var s1 = library.Student{Name: "ethan", Grade: 22}
 	fmt.Println("name :", s1.Name)
 	fmt.Println("grade :", s1.Grade)
 }
