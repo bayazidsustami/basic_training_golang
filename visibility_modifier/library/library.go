@@ -17,3 +17,7 @@ type Student struct {
 	Name  string
 	Grade int
 }
+
+func init() {
+	fmt.Println("-----> library/library.go imported")
+}
