@@ -34,6 +34,15 @@ func main() {
 
 	secret = 12.4
 	fmt.Println(secret)
+
+	data := map[string]interface{}{
+		"name":      "jhon ethan",
+		"grade":     2,
+		"breakfast": []string{"apple", "banana", "pineapple"},
+	}
+
+	fmt.Println(data["name"])
+	fmt.Println(data["breakfast"])
 }
 
 type hitung interface {
