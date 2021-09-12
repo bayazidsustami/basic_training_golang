@@ -29,6 +29,21 @@ func main() {
 		panic(err.Error())
 	}
 
+	data := []string{"superman", "aquaman", "wonder woman"}
+
+	for _, each := range data {
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					fmt.Println("Panic occured on looping", each, "| message:", r)
+				} else {
+					fmt.Println("Application perfect")
+				}
+			}()
+			panic("some error happen")
+		}()
+	}
+
 }
 
 func validate(input string) (bool, error) {
