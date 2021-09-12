@@ -25,7 +25,7 @@ func main() {
 	if valid, err := validate(input); valid {
 		fmt.Println("hay", input)
 	} else {
-		fmt.Println(err.Error())
+		panic(err.Error())
 	}
 
 }
