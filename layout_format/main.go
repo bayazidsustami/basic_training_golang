@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
 	var data = student{
@@ -40,6 +44,11 @@ func main() {
 	fmt.Printf("%+#v \n", data)
 	//to format string hexadecimal
 	fmt.Printf("%x\n", data.age)
+
+	rand.Seed(time.Now().UTC().UnixNano())
+	fmt.Println("Random ke-1", rand.Int())
+	fmt.Println("Random ke-2", rand.Int())
+	fmt.Println("Random ke-3", rand.Int())
 
 }
 
