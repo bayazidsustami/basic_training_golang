@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	defer catch()
 	var input string
 	fmt.Println("Type some number : ")
 	fmt.Scanln(&input)
@@ -35,4 +36,12 @@ func validate(input string) (bool, error) {
 		return false, errors.New("cannot be empty")
 	}
 	return true, nil
+}
+
+func catch() {
+	if r := recover(); r != nil {
+		fmt.Println("Error occured", r)
+	} else {
+		fmt.Println("Application running perfectly")
+	}
 }
