@@ -1,12 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 
 	orderSomeFood("pizza")
 	orderSomeFood("burger")
-
+	os.Exit(1)
 	fmt.Println("--------------------")
 	deferAndIife()
 }
