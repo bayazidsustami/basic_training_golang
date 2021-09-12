@@ -6,6 +6,9 @@ func main() {
 
 	orderSomeFood("pizza")
 	orderSomeFood("burger")
+
+	fmt.Println("--------------------")
+	deferAndIife()
 }
 
 func orderSomeFood(menu string) {
@@ -16,4 +19,14 @@ func orderSomeFood(menu string) {
 		return
 	}
 	fmt.Println("Pesanan anda : ", menu)
+}
+
+//defer only for function scope
+func deferAndIife() {
+	number := 3
+	if number == 3 {
+		fmt.Println("halo 1")
+		defer fmt.Println("halo 3")
+	}
+	fmt.Println("Halo 2")
 }
