@@ -69,6 +69,7 @@ func timeSleep() {
 	//scheduler()
 	timeNewTimer()
 	timerAfterFunc()
+	schedulerWithTicker()
 }
 
 //for schedule print hello every one second
@@ -99,4 +100,25 @@ func timerAfterFunc() {
 
 	<-time.After(4 * time.Second)
 	fmt.Println("expired")
+}
+
+func schedulerWithTicker() {
+	done := make(chan bool)
+	ticker := time.NewTicker(time.Second)
+
+	go func() {
+		time.Sleep(10 * time.Second)
+		done <- true
+	}()
+
+	for {
+		select {
+		case <-done:
+			ticker.Stop()
+			return
+		case t := <-ticker.C:
+			fmt.Println("Hello !!", t)
+		}
+	}
+
 }
