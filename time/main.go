@@ -18,6 +18,7 @@ func main() {
 	predefinedLayout()
 	timeToString()
 	errorHandlingTimeParse()
+	timeSleep()
 }
 
 func parsingStringToTime() {
@@ -57,4 +58,45 @@ func errorHandlingTimeParse() {
 		return
 	}
 	fmt.Println(date)
+}
+
+//blocking all program operation until sleep finish
+func timeSleep() {
+	fmt.Println("start")
+	time.Sleep(time.Second * 4)
+	fmt.Println("after 4 second")
+
+	//scheduler()
+	timeNewTimer()
+	timerAfterFunc()
+}
+
+//for schedule print hello every one second
+/*func scheduler() {
+	for true {
+		fmt.Println("Hello !!")
+		time.Sleep(1 * time.Second)
+	}
+}*/
+
+func timeNewTimer() {
+	var timer = time.NewTimer(4 * time.Second)
+	fmt.Println("Start")
+	<-timer.C
+	fmt.Println("Finish")
+}
+
+func timerAfterFunc() {
+	var ch = make(chan bool)
+	time.AfterFunc(4*time.Second, func() {
+		fmt.Println("Expired")
+		ch <- true
+	})
+
+	fmt.Println("Start timer after func")
+	<-ch
+	fmt.Println("finish after func")
+
+	<-time.After(4 * time.Second)
+	fmt.Println("expired")
 }
