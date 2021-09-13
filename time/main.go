@@ -17,6 +17,7 @@ func main() {
 	parsingStringToTime()
 	predefinedLayout()
 	timeToString()
+	errorHandlingTimeParse()
 }
 
 func parsingStringToTime() {
@@ -47,5 +48,13 @@ func timeToString() {
 
 	var dates2 = date.Format(time.RFC3339)
 	fmt.Println("dates2", dates2)
+}
 
+func errorHandlingTimeParse() {
+	var date, err = time.Parse("06 Jan 15", "02 Sep 15 08:00 WIB")
+	if err != nil {
+		fmt.Println("Error parse", err.Error())
+		return
+	}
+	fmt.Println(date)
 }
