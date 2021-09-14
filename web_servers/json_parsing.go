@@ -30,4 +30,24 @@ func main() {
 	fmt.Println("Name : ", data1["Name"])
 	fmt.Println("age :", data1["Age"])
 
+	decodeArrayJson()
+
+}
+
+func decodeArrayJson() {
+	var jsonString = `[
+		{"Name": "Buys", "Age": 24},
+		{"Name": "Bsa", "Age": 25}
+		]`
+
+	var data []User
+
+	var err = json.Unmarshal([]byte(jsonString), &data)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	fmt.Println("User 1:", data[0].FullName)
+	fmt.Println("User 2 :", data[1].FullName)
 }
