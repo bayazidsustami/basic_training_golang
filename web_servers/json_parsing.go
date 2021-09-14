@@ -31,7 +31,7 @@ func main() {
 	fmt.Println("age :", data1["Age"])
 
 	decodeArrayJson()
-
+	encodeToJsonString()
 }
 
 func decodeArrayJson() {
@@ -50,4 +50,19 @@ func decodeArrayJson() {
 
 	fmt.Println("User 1:", data[0].FullName)
 	fmt.Println("User 2 :", data[1].FullName)
+}
+
+func encodeToJsonString() {
+	var obj = []User{
+		{"jhon", 21},
+		{"wick", 22},
+	}
+	var jsonData, err = json.Marshal(obj)
+	if err != nil {
+		fmt.Print(err.Error())
+		return
+	}
+
+	var jsonString = string(jsonData)
+	fmt.Println(jsonString)
 }
