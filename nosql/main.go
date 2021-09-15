@@ -19,6 +19,7 @@ type student struct {
 
 func main() {
 	//insert()
+	//update()
 	find()
 }
 
@@ -85,4 +86,20 @@ func find() {
 		fmt.Println("Grade	:", result[0].Grade)
 	}
 
+}
+
+func update() {
+	db, err := connect()
+
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	var selector = bson.M{"name": "wick"}
+	var changes = student{"Jhon Wick", 3}
+	_, err = db.Collection("student").UpdateOne(ctx, selector, bson.M{"$set": changes})
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	fmt.Println("Update Success!")
 }
