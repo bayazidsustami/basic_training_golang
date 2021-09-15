@@ -17,6 +17,8 @@ type student struct {
 func main() {
 	sqlQuery()
 	sqlQueryRow()
+	fmt.Println("=====================sql prepare technique===================")
+	sqlPrepare()
 }
 
 func connect() (*sql.DB, error) {
@@ -88,4 +90,32 @@ func sqlQueryRow() {
 	}
 
 	fmt.Printf("name : %s\ngrade : %d\n", result.name, result.grade)
+}
+
+func sqlPrepare() {
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	defer db.Close()
+
+	stmt, err := db.Prepare("SELECT name, grade FROM tb_student WHERE id = ?")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	var result1 = student{}
+	stmt.QueryRow("E001").Scan(&result1.name, &result1.grade)
+	fmt.Printf("name : %s\ngrade : %d\n", result1.name, result1.grade)
+
+	var result2 = student{}
+	stmt.QueryRow("W001").Scan(&result2.name, &result2.grade)
+	fmt.Printf("name : %s\ngrade : %d\n", result2.name, result2.grade)
+
+	var result3 = student{}
+	stmt.QueryRow("W001").Scan(&result3.name, &result3.grade)
+	fmt.Printf("name : %s\ngrade : %d\n", result3.name, result3.grade)
+
 }
