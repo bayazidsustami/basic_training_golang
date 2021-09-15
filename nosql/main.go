@@ -20,6 +20,7 @@ type student struct {
 func main() {
 	//insert()
 	//update()
+	delete()
 	find()
 }
 
@@ -102,4 +103,19 @@ func update() {
 		log.Fatal(err.Error())
 	}
 	fmt.Println("Update Success!")
+}
+
+func delete() {
+	db, err := connect()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	var selector = bson.M{"name": "Ethan"}
+	_, err = db.Collection("student").DeleteOne(ctx, selector)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Println("remove success")
 }
