@@ -19,6 +19,8 @@ func main() {
 	sqlQueryRow()
 	fmt.Println("=====================sql prepare technique===================")
 	sqlPrepare()
+	fmt.Println("=====================sql exec===================")
+	sqlExec()
 }
 
 func connect() (*sql.DB, error) {
@@ -117,5 +119,30 @@ func sqlPrepare() {
 	var result3 = student{}
 	stmt.QueryRow("W001").Scan(&result3.name, &result3.grade)
 	fmt.Printf("name : %s\ngrade : %d\n", result3.name, result3.grade)
+
+}
+
+func sqlExec() {
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	defer db.Close()
+
+	_, err = db.Exec("INSERT INTO tb_student VALUES (?, ?, ?, ?)", "G001", "Galahad", 29, 2)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("insert success")
+
+	_, err = db.Exec("DELETE FROM tb_student WHERE id = ?", "E001")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("delete success")
 
 }
