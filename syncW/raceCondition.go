@@ -7,14 +7,11 @@ import (
 )
 
 type counter struct {
-	sync.Mutex
 	val int
 }
 
 func (c *counter) Add(x int) {
-	c.Lock()
 	c.val++
-	c.Unlock()
 }
 
 func (c *counter) Value() (x int) {
@@ -25,6 +22,7 @@ func main() {
 	runtime.GOMAXPROCS(2)
 
 	var wg sync.WaitGroup
+	var mtx sync.Mutex
 	var meter counter
 
 	for i := 0; i < 1000; i++ {
@@ -32,7 +30,9 @@ func main() {
 
 		go func() {
 			for j := 0; j < 1000; j++ {
+				mtx.Lock()
 				meter.Add(1)
+				mtx.Unlock()
 			}
 
 			wg.Done()
