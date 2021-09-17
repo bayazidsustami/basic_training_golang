@@ -41,9 +41,7 @@ func generateFile() {
 			log.Println("Error writing file", err.Error())
 		}
 
-		if i%100 == 0 && i > 0 {
-			log.Println(i, "files created")
-		}
+		log.Println(i, "files created")
 	}
 	log.Printf("%d of total files created", totalFile)
 }
