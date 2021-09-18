@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -13,7 +14,15 @@ func main() {
 	var address = "localhost:9000"
 	fmt.Printf("server startted at %s\n", address)
 
-	err := http.ListenAndServe(address, nil)
+	/*err := http.ListenAndServe(address, nil)
+	if err != nil {
+		fmt.Println(err.Error())
+	}*/
+	server := new(http.Server)
+	server.Addr = address
+	server.ReadTimeout = time.Second * 10
+	server.WriteTimeout = time.Second * 10
+	err := server.ListenAndServe()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
