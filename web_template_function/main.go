@@ -30,6 +30,28 @@ func main() {
 		}
 	})
 
+	var funcMap = template.FuncMap{
+		"unescape": func(s string) template.HTML {
+			return template.HTML(s)
+		},
+		"avg": func(n ...int) int {
+			var total = 0
+			for _, each := range n {
+				total += each
+			}
+			return total / len(n)
+		},
+	}
+
+	http.HandleFunc("/custom_function", func(rw http.ResponseWriter, r *http.Request) {
+		var tmpl = template.Must(template.New("view_custom_function.html").
+			Funcs(funcMap).
+			ParseFiles("view_custom_function.html"))
+		if err := tmpl.Execute(rw, nil); err != nil {
+			http.Error(rw, err.Error(), http.StatusInternalServerError)
+		}
+	})
+
 	fmt.Println("server started at localhost:900")
 	http.ListenAndServe(":9000", nil)
 }
