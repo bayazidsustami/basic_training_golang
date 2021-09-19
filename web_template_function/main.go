@@ -52,6 +52,23 @@ func main() {
 		}
 	})
 
-	fmt.Println("server started at localhost:900")
+	http.HandleFunc("/index", handlerIndex)
+	http.HandleFunc("/other_index", handlerOtherIndex)
+
+	fmt.Println("server started at localhost:9000")
 	http.ListenAndServe(":9000", nil)
+}
+
+func handlerIndex(rw http.ResponseWriter, r *http.Request) {
+	var tmpl = template.Must(template.New("index").ParseFiles("view_render_spesific_template.html"))
+	if err := tmpl.Execute(rw, nil); err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func handlerOtherIndex(rw http.ResponseWriter, r *http.Request) {
+	var tmpl = template.Must(template.New("other-index").ParseFiles("view_render_spesific_template.html"))
+	if err := tmpl.Execute(rw, nil); err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
 }
