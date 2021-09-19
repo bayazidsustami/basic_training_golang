@@ -6,6 +6,15 @@ import (
 	"net/http"
 )
 
+const view string = `<html>
+	<head>
+		<title>learning golang</title>
+	</head>
+	<body>
+		<h1>Hello from string golang</h1>
+	</body>
+</html>`
+
 type Superhero struct {
 	Name    string
 	Alias   string
@@ -54,6 +63,8 @@ func main() {
 
 	http.HandleFunc("/index", handlerIndex)
 	http.HandleFunc("/other_index", handlerOtherIndex)
+	http.HandleFunc("/html_string", handlerHtmlString)
+	http.HandleFunc("/other_html/redirect", handlerRedirect)
 
 	fmt.Println("server started at localhost:9000")
 	http.ListenAndServe(":9000", nil)
@@ -71,4 +82,15 @@ func handlerOtherIndex(rw http.ResponseWriter, r *http.Request) {
 	if err := tmpl.Execute(rw, nil); err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func handlerHtmlString(rw http.ResponseWriter, r *http.Request) {
+	var tmpl = template.Must(template.New("main-template").Parse(view))
+	if err := tmpl.Execute(rw, nil); err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func handlerRedirect(rw http.ResponseWriter, r *http.Request) {
+	http.Redirect(rw, r, "/html_string", http.StatusTemporaryRedirect)
 }
