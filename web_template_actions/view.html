@@ -29,6 +29,19 @@
                 <td>Affiliation</td>
                 <td>: {{.Info.Affiliation}} - ({{.Info.GetAffiliationInfo}})</td>
             </tr>
+            {{with .Info}}
+            <tr>
+                <td>Address</td>
+                <td>: {{.Address}}</td>
+            </tr>
+            {{end}}
+            {{if eq .Name "Boy boy"}}
+            <tr>
+                <td colspan="2" style="font-weight: bold;">
+                    I'm Batman
+                </td>
+            </tr>
+            {{end}}
         </table>
     </body>
 </html>
