@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learning golang actions template</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                {{/*example how to use actions*/}}
+                <td>{{"Name"}}</td>
+                <td>: {{.Name}}</td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                {{$gender := .Gender}}
+                <td style="text-transform :capitalize;">:
+                    {{$gender}}
+                </td>
+            </tr>
+            <tr>
+                <td>Hobbies</td>
+                <td>:
+                    {{range $index, $element := .Hobbies}}
+                        {{$element}},
+                    {{end}}
+                </td>
+            </tr>
+            <tr>
+                <td>Affiliation</td>
+                <td>: {{.Info.Affiliation}} - ({{.Info.GetAffiliationInfo}})</td>
+            </tr>
+        </table>
+    </body>
+</html>
