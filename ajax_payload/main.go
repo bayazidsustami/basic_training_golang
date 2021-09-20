@@ -10,6 +10,7 @@ import (
 func main() {
 	http.HandleFunc("/", handlerIndex)
 	http.HandleFunc("/save", handlerSave)
+	http.HandleFunc("/json_response", ActionIndex)
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("assets"))))
 
@@ -49,4 +50,24 @@ func handlerSave(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Error(rw, "only accept post request", http.StatusBadRequest)
+}
+
+func ActionIndex(rw http.ResponseWriter, r *http.Request) {
+	data := []struct {
+		Name string
+		Age  int
+	}{
+		{"Richard grayson", 24},
+		{"jason todd", 23},
+		{"Tim drake", 21},
+		{"boy", 43},
+	}
+
+	jsonInBytes, err := json.Marshal(data)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusInternalServerError)
+	}
+
+	rw.Header().Set("Content-Type", "application/json")
+	rw.Write(jsonInBytes)
 }
