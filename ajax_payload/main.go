@@ -63,11 +63,10 @@ func ActionIndex(rw http.ResponseWriter, r *http.Request) {
 		{"boy", 43},
 	}
 
-	jsonInBytes, err := json.Marshal(data)
+	rw.Header().Set("Content-Type", "application/json")
+
+	err := json.NewEncoder(rw).Encode(data)
 	if err != nil {
 		http.Error(rw, err.Error(), http.StatusInternalServerError)
 	}
-
-	rw.Header().Set("Content-Type", "application/json")
-	rw.Write(jsonInBytes)
 }
