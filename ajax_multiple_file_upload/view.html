@@ -5,13 +5,13 @@
         <script src="static/node_modules/jquery/dist/jquery.js"></script>
         <script>
             $(function () {
-                $("user-form").on("submit", function (e){
+                $("#user-form").on("submit", function (e){
                     e.preventDefault();
 
                     var $self = $(this);
                     var files = $("#upload-file")[0].files;
                     var formData = new FormData();
-
+                    
                     for(var i=0; i<files.length; i++){
                         formData.append("files", files[i]);
                     }
@@ -24,7 +24,7 @@
                         contentType: false,
                     }).then(function (res) {
                         alert(res);
-                        $('#user-form').trigger("reset");
+                        $("#user-form").trigger("reset");
                     }).catch(function (a) {
                         alert("ERROR :"+a.responseText);
                     });

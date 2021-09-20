@@ -26,7 +26,7 @@ func handlerIndex(rw http.ResponseWriter, r *http.Request) {
 }
 
 func handlerUpload(rw http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
+	if r.Method != "POST" {
 		http.Error(rw, "only accept POST method", http.StatusBadRequest)
 		return
 	}
