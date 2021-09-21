@@ -7,17 +7,16 @@ import (
 )
 
 func main() {
-	mux := http.DefaultServeMux
+	mux := new(CustomMux)
 
 	mux.HandleFunc("/student", ActionStudent)
 
-	var handler http.Handler = mux
-	handler = MiddlewareAuth(handler)
-	handler = MiddlewareOnlyGet(handler)
+	mux.RegisterMiddleware(MiddlewareAuth)
+	mux.RegisterMiddleware(MiddlewareOnlyGet)
 
 	server := new(http.Server)
 	server.Addr = ":9000"
-	server.Handler = handler
+	server.Handler = mux
 
 	fmt.Println("server started at localhost:9000")
 	server.ListenAndServe()
