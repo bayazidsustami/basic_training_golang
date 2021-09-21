@@ -5,27 +5,31 @@ import "net/http"
 const USERNAME = "batmam"
 const PASSWORD = "secret"
 
-func Auth(rw http.ResponseWriter, r *http.Request) bool {
-	username, password, ok := r.BasicAuth()
-	if !ok {
-		rw.Write([]byte(`something wrong`))
-		return false
-	}
+func MiddlewareAuth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		username, password, ok := r.BasicAuth()
+		if !ok {
+			rw.Write([]byte(`something wrong`))
+			return
+		}
 
-	isValid := (username == USERNAME) && (password == PASSWORD)
-	if !isValid {
-		rw.Write([]byte(`wrong username/password`))
-		return false
-	}
+		isValid := (username == USERNAME) && (password == PASSWORD)
+		if !isValid {
+			rw.Write([]byte(`wrong username/password`))
+			return
+		}
 
-	return true
+		next.ServeHTTP(rw, r)
+	})
 }
 
-func AllowOnlyGet(rw http.ResponseWriter, r *http.Request) bool {
-	if r.Method != "GET" {
-		rw.Write([]byte("only get is allowed"))
-		return false
-	}
+func MiddlewareOnlyGet(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" {
+			rw.Write([]byte("only get is allowed"))
+			return
+		}
 
-	return true
+		next.ServeHTTP(rw, r)
+	})
 }
