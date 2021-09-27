@@ -73,5 +73,7 @@ func main() {
 	r.GET("/home", echo.WrapHandler(ActionHome))
 	r.GET("/about", ActionAbout)
 
+	r.Static("/static", "assets")
+
 	r.Start(":9000")
 }
