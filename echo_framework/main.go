@@ -10,6 +10,18 @@ import (
 
 type M map[string]interface{}
 
+var ActionIndex = func(rw http.ResponseWriter, r *http.Request) {
+	rw.Write([]byte("from action index"))
+}
+
+var ActionHome = http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+	rw.Write([]byte("From action home"))
+})
+
+var ActionAbout = echo.WrapHandler(http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+	rw.Write([]byte("from action about"))
+}))
+
 func main() {
 	r := echo.New()
 
@@ -56,6 +68,10 @@ func main() {
 		data := fmt.Sprintf("Hello %s i have message for you %s", name, strings.Replace(message, "/", "", 1))
 		return ctx.String(http.StatusOK, data)
 	})
+
+	r.GET("/index", echo.WrapHandler(http.HandlerFunc(ActionIndex)))
+	r.GET("/home", echo.WrapHandler(ActionHome))
+	r.GET("/about", ActionAbout)
 
 	r.Start(":9000")
 }
