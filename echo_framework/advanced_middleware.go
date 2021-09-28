@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
@@ -14,6 +15,9 @@ func main() {
 	e.Use(middlewareOne)
 	e.Use(middlewareTwo)
 	e.Use(echo.WrapMiddleware(middlewareSomething))
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, uri=${uri}, status=${status}\n",
+	}))
 
 	e.GET("/index", actionIndex)
 
