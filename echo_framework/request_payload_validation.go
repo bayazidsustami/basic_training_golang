@@ -37,5 +37,14 @@ func main() {
 		return ctx.JSON(http.StatusOK, true)
 	})
 
+	e.HTTPErrorHandler = func(err error, ctx echo.Context) {
+		report, ok := err.(*echo.HTTPError)
+		if !ok {
+			report = echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+		ctx.Logger().Error(report)
+		ctx.JSON(report.Code, report)
+	}
+
 	e.Logger.Fatal(e.Start(":9000"))
 }
