@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -42,6 +43,23 @@ func main() {
 		if !ok {
 			report = echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
+
+		if castedObj, ok := err.(validator.ValidationErrors); ok {
+			for _, err := range castedObj {
+				switch err.Tag() {
+				case "required":
+					report.Message = fmt.Sprintf("%s is required", err.Field())
+				case "email":
+					report.Message = fmt.Sprintf("%s is not valid email", err.Field())
+				case "gte":
+					report.Message = fmt.Sprintf("%s value must greather than %s", err.Field(), err.Param())
+				case "lte":
+					report.Message = fmt.Sprintf("%s value must lower than %s", err.Field(), err.Param())
+				}
+				break
+			}
+		}
+
 		ctx.Logger().Error(report)
 		ctx.JSON(report.Code, report)
 	}
