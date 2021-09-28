@@ -13,6 +13,7 @@ func main() {
 	//middleware
 	e.Use(middlewareOne)
 	e.Use(middlewareTwo)
+	e.Use(echo.WrapMiddleware(middlewareSomething))
 
 	e.GET("/index", actionIndex)
 
@@ -36,4 +37,11 @@ func middlewareTwo(next echo.HandlerFunc) echo.HandlerFunc {
 		fmt.Println("from middleware two")
 		return next(c)
 	}
+}
+
+func middlewareSomething(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		fmt.Println("from middleware something")
+		next.ServeHTTP(rw, r)
+	})
 }
