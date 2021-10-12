@@ -1,5 +1,5 @@
-## Basic Training golang
+# Basic Training golang
 list of my training code golang
 
-#Run
+## Run
 To run the project using ```go run <PROJECT_NAME>```
