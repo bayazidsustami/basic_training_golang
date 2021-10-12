@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/globalsign/mgo"
 	"github.com/gorilla/context"
 	"github.com/kidstuff/mongostore"
 	"github.com/labstack/echo/v4"
-	"gopkg.in/mgo.v2"
 )
 
 const SESSION_ID = "id"
