@@ -1,6 +1,22 @@
+# github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
+## explicit
+github.com/globalsign/mgo
+github.com/globalsign/mgo/bson
+github.com/globalsign/mgo/internal/json
+github.com/globalsign/mgo/internal/sasl
+github.com/globalsign/mgo/internal/scram
+# github.com/gorilla/context v1.1.1
+## explicit
+github.com/gorilla/context
 # github.com/gorilla/securecookie v1.1.1
 ## explicit
 github.com/gorilla/securecookie
+# github.com/gorilla/sessions v1.2.1
+## explicit
+github.com/gorilla/sessions
+# github.com/kidstuff/mongostore v0.0.0-20181113001930-e650cd85ee4b
+## explicit
+github.com/kidstuff/mongostore
 # github.com/labstack/echo/v4 v4.6.1
 ## explicit
 github.com/labstack/echo/v4
@@ -39,3 +55,10 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+# gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+## explicit
+gopkg.in/mgo.v2
+gopkg.in/mgo.v2/bson
+gopkg.in/mgo.v2/internal/json
+gopkg.in/mgo.v2/internal/sasl
+gopkg.in/mgo.v2/internal/scram
