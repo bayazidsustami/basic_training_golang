@@ -18,6 +18,8 @@ func main() {
 	goodBye := getGoodBye
 	fmt.Println(goodBye("bay"))
 
+	sayHelloWithFilter("bay", spamFilter)
+
 }
 
 func sayHello() {
@@ -45,7 +47,20 @@ func getNumbers() (numb1, numb2, numb3 int) {
 	return numb1, numb2, numb3
 }
 
-// function asvalue
+// function as value
 func getGoodBye(name string) string {
 	return "bye " + name
+}
+
+// function as parameter
+func sayHelloWithFilter(name string, filter func(string) string) {
+	fmt.Println("Hello", filter(name))
+}
+
+func spamFilter(name string) string {
+	if name == "Anjing" {
+		return "..."
+	} else {
+		return name
+	}
 }
