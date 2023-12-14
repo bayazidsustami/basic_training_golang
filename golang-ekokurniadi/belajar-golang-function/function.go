@@ -20,6 +20,14 @@ func main() {
 
 	sayHelloWithFilter("bay", spamFilter)
 
+	// anonymous func
+	blacklist := func(name string) bool {
+		return name == "anjing"
+	}
+	registerUser("bay", blacklist)
+	registerUser("anjing", func(name string) bool {
+		return name == "anjing"
+	})
 }
 
 func sayHello() {
@@ -62,5 +70,16 @@ func spamFilter(name string) string {
 		return "..."
 	} else {
 		return name
+	}
+}
+
+// anonymous function
+type Blacklist func(string) bool
+
+func registerUser(name string, blacklist Blacklist) {
+	if blacklist(name) {
+		fmt.Println("your are blocked", name)
+	} else {
+		fmt.Println("welcome", name)
 	}
 }
