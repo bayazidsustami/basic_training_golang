@@ -15,6 +15,9 @@ func main() {
 
 	fmt.Println(getNumbers())
 
+	goodBye := getGoodBye
+	fmt.Println(goodBye("bay"))
+
 }
 
 func sayHello() {
@@ -40,4 +43,9 @@ func getNumbers() (numb1, numb2, numb3 int) {
 	numb2 = 2
 	numb3 = 3
 	return numb1, numb2, numb3
+}
+
+// function asvalue
+func getGoodBye(name string) string {
+	return "bye " + name
 }
