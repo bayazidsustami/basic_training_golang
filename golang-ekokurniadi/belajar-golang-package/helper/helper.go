@@ -8,7 +8,7 @@ func SayHello(name string) string {
 	return "hellow " + name
 }
 
-// (private)
+// (private) tapi tetap bisa diakses di package yang sama
 func sayGoodBye(name string) string {
 	return "bye " + name
 }
