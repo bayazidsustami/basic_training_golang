@@ -8,4 +8,6 @@ import (
 func main() {
 	result := helper.SayHello("bay")
 	fmt.Println(result)
+
+	fmt.Println(helper.ApplicationName)
 }
