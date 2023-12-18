@@ -74,3 +74,29 @@ func TestHelloName(t *testing.T) {
 		assert.Equal(t, "Hello Bayazid", result)
 	})
 }
+
+func TestHelloNameWithTableTest(t *testing.T) {
+	testCases := []struct {
+		Name     string
+		Request  string
+		Expected string
+	}{
+		{
+			Name:     "Bay",
+			Request:  "Bay",
+			Expected: "Hello Bay",
+		},
+		{
+			Name:     "Bayazid",
+			Request:  "Bayazid",
+			Expected: "Hello Bayazid",
+		},
+	}
+
+	for _, test := range testCases {
+		t.Run(test.Name, func(t *testing.T) {
+			result := HelloWorld(test.Request)
+			assert.Equal(t, test.Expected, result)
+		})
+	}
+}
