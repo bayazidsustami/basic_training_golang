@@ -59,3 +59,18 @@ func TestMultiplicationSkip(t *testing.T) {
 	result := Multiplication(1, 2)
 	assert.Equal(t, 2, result)
 }
+
+func TestHelloName(t *testing.T) {
+	t.Run("Bay", func(t *testing.T) {
+		result := HelloWorld("Bay")
+		assert.Equal(t, "Hello Bay", result)
+	})
+	t.Run("Yazid", func(t *testing.T) {
+		result := HelloWorld("Yazid")
+		assert.Equal(t, "Hello Yazid", result)
+	})
+	t.Run("Bayazid", func(t *testing.T) {
+		result := HelloWorld("Bayazid")
+		assert.Equal(t, "Hello Bayazid", result)
+	})
+}
