@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"runtime"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -39,4 +40,13 @@ func TestMultiplicationAssertion(t *testing.T) {
 func TestMultiplicationRequire(t *testing.T) {
 	result := Multiplication(1, 2)
 	require.Equal(t, 2, result) // mirip t.FailNow()
+}
+
+func TestMultiplicationSkip(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("can't run on mac")
+	}
+
+	result := Multiplication(1, 2)
+	assert.Equal(t, 2, result)
 }
