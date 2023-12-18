@@ -27,7 +27,7 @@ func TestHelloWorldSuccess(t *testing.T) {
 
 func TestHelloWorld(t *testing.T) {
 	result := HelloWorld("bay")
-	if result != "Hello bays" {
+	if result != "Hello bay" {
 		//t.Fail() // masih melanjutkan eksekusi code
 		t.Error("harusnya bays") // memanggil t.Fail() dengan message
 	}
@@ -35,7 +35,7 @@ func TestHelloWorld(t *testing.T) {
 
 func TestHelloWorldWithString(t *testing.T) {
 	result := HelloWorld("bayazid sustami")
-	if result != "Hello bayazid sustamis" {
+	if result != "Hello bayazid sustami" {
 		//t.FailNow() // langsung  menghentikan eksekusi code
 		t.Fatal("harusnya bayazid sustamis") // memanggil t.FailNow() dengan message
 	}
@@ -97,6 +97,57 @@ func TestHelloNameWithTableTest(t *testing.T) {
 		t.Run(test.Name, func(t *testing.T) {
 			result := HelloWorld(test.Request)
 			assert.Equal(t, test.Expected, result)
+		})
+	}
+}
+
+// benchmark function
+func BenchmarkMultiplication(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Multiplication(1000, 5000)
+	}
+}
+
+func BenchmarkHelloWorldSub(b *testing.B) {
+
+	b.Run("Bay", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Bay")
+		}
+	})
+	b.Run("Yazid", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Yazid")
+		}
+	})
+	b.Run("Bayazid", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Bayazid")
+		}
+	})
+}
+
+func BenchmarkHelloWorldTable(b *testing.B) {
+	testCases := []struct {
+		Name     string
+		Request  string
+		Expected string
+	}{
+		{
+			Name:    "Bay",
+			Request: "Bay",
+		},
+		{
+			Name:    "Bayazid",
+			Request: "Bayazid",
+		},
+	}
+
+	for _, test := range testCases {
+		b.Run(test.Name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(test.Request)
+			}
 		})
 	}
 }
