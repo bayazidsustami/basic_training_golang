@@ -3,6 +3,7 @@ package belajargolangcontext
 import (
 	"context"
 	"fmt"
+	"runtime"
 	"testing"
 )
 
@@ -38,4 +39,31 @@ func TestContextWithValue(t *testing.T) {
 	fmt.Println(contextF.Value("c")) // dapat data karena contextF turunan dari C
 	fmt.Println(contextF.Value("b")) // tidak dapat karena beda parent
 	fmt.Println(contextA.Value("b")) // tidak dapat karena tidak bisa mengambil data dari child
+}
+
+func CreateCounter() chan int {
+	destination := make(chan int)
+
+	go func() {
+		defer close(destination)
+		counter := 1
+		for {
+			destination <- counter
+			counter++
+		}
+	}()
+
+	return destination
+}
+
+func TestContextWithCancel(t *testing.T) {
+	fmt.Println(runtime.NumGoroutine())
+	destination := CreateCounter()
+	for n := range destination {
+		fmt.Println("counter", n)
+		if n == 10 {
+			break
+		}
+	}
+	fmt.Println(runtime.NumGoroutine())
 }
