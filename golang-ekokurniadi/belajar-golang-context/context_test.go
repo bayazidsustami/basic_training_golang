@@ -55,6 +55,7 @@ func CreateCounter(ctx context.Context) chan int {
 			default:
 				destination <- counter
 				counter++
+				time.Sleep(1 * time.Second) // simulate slow process
 			}
 		}
 	}()
@@ -76,6 +77,38 @@ func TestContextWithCancel(t *testing.T) {
 	}
 
 	cancel() // mengirim signal cancel ke context
+
+	time.Sleep(2 * time.Second)
+	fmt.Println(runtime.NumGoroutine())
+}
+
+func TestContextWithTimeout(t *testing.T) {
+	fmt.Println(runtime.NumGoroutine())
+	parent := context.Background()
+	ctx, cancel := context.WithTimeout(parent, 5*time.Second)
+	defer cancel()
+
+	destination := CreateCounter(ctx)
+	fmt.Println(runtime.NumGoroutine())
+	for n := range destination {
+		fmt.Println("counter", n)
+	}
+
+	time.Sleep(2 * time.Second)
+	fmt.Println(runtime.NumGoroutine())
+}
+
+func TestContextWithDeadline(t *testing.T) {
+	fmt.Println(runtime.NumGoroutine())
+	parent := context.Background()
+	ctx, cancel := context.WithDeadline(parent, time.Now().Add(5*time.Second))
+	defer cancel()
+
+	destination := CreateCounter(ctx)
+	fmt.Println(runtime.NumGoroutine())
+	for n := range destination {
+		fmt.Println("counter", n)
+	}
 
 	time.Sleep(2 * time.Second)
 	fmt.Println(runtime.NumGoroutine())
