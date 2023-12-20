@@ -3,4 +3,5 @@ go 1.21.3
 use (
 	./belajar-golang-database
 	./belajar-golang-embed
+	./belajar-golang-web
 )
