@@ -192,7 +192,7 @@ func TestSqlPrepareStatement(t *testing.T) {
 	}
 	defer stmt.Close()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		email := "eko" + strconv.Itoa(i) + "@mail.com"
 		comment := "ini comment ke " + strconv.Itoa(i)
 
@@ -208,5 +208,40 @@ func TestSqlPrepareStatement(t *testing.T) {
 
 		fmt.Println("success insert new comment with id", lastId)
 	}
+}
 
+func TestDatabaseTransaction(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	context := context.Background()
+
+	tx, err := db.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	queryInsert := "INSERT INTO comments(email, comment) VALUES(?, ?)"
+
+	for i := 0; i < 10; i++ {
+		email := "eko" + strconv.Itoa(i) + "@mail.com"
+		comment := "ini comment ke " + strconv.Itoa(i)
+
+		result, err := tx.ExecContext(context, queryInsert, email, comment)
+		if err != nil {
+			panic(err)
+		}
+
+		lastId, err := result.LastInsertId()
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("success insert new comment with id", lastId)
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		panic(err)
+	}
 }
