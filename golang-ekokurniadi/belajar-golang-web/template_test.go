@@ -43,6 +43,7 @@ type Page struct {
 
 type Address struct {
 	Street string
+	City   string
 }
 
 func SimpleHTMLDataStruct(w http.ResponseWriter, r *http.Request) {

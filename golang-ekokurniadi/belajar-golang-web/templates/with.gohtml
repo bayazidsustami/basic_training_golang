@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{.Title}}</title>
+    </head>
+    <body>
+        <h1>Name : {{.Name}}</h1>
+        {{with .Address}}
+            <h1>Name : {{.Street}}</h1>
+            <h1>Name : {{.City}}</h1>
+        {{end}}
+    </body>
+</html>
