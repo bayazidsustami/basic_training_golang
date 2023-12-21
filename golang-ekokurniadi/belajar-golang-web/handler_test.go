@@ -21,3 +21,33 @@ func TestHandler(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestServeMux(t *testing.T) {
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "hello world")
+	})
+
+	mux.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "hi hi")
+	})
+
+	mux.HandleFunc("/images/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "images")
+	})
+
+	mux.HandleFunc("/images/thumbnails/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "thumbnail")
+	})
+
+	server := http.Server{
+		Addr:    "localhost:8080",
+		Handler: mux,
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+}
