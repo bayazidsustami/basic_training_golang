@@ -4,4 +4,37 @@ use (
 	./belajar-golang-database
 	./belajar-golang-embed
 	./belajar-golang-web
+	./belajar-golang-goroutine
+	./belajar-golang-context
+	./belajar-golang-dasar/belajar-golang-array
+	./belajar-golang-dasar/belajar-golang-basic
+	./belajar-golang-dasar/belajar-golang-boolean
+	./belajar-golang-dasar/belajar-golang-closure
+	./belajar-golang-dasar/belajar-golang-compare
+	./belajar-golang-dasar/belajar-golang-data-type-conversion
+	./belajar-golang-dasar/belajar-golang-defer
+	./belajar-golang-dasar/belajar-golang-errors
+	./belajar-golang-dasar/belajar-golang-for-loop
+	./belajar-golang-dasar/belajar-golang-function
+	./belajar-golang-dasar/belajar-golang-if-expression
+	./belajar-golang-dasar/belajar-golang-interface
+	./belajar-golang-dasar/belajar-golang-map
+	./belajar-golang-dasar/belajar-golang-math
+	./belajar-golang-dasar/belajar-golang-nil
+	./belajar-golang-dasar/belajar-golang-number
+	./belajar-golang-dasar/belajar-golang-package
+	./belajar-golang-dasar/belajar-golang-package-init
+	./belajar-golang-dasar/belajar-golang-pointer
+	./belajar-golang-dasar/belajar-golang-recursive
+	./belajar-golang-dasar/belajar-golang-slice
+	./belajar-golang-dasar/belajar-golang-string
+	./belajar-golang-dasar/belajar-golang-struct
+	./belajar-golang-dasar/belajar-golang-switch-expression
+	./belajar-golang-dasar/belajar-golang-type-assertion
+	./belajar-golang-dasar/belajar-golang-type-declaration
+	./belajar-golang-dasar/belajar-golang-variable
+	./belajar-golang-dasar/belajar-golang-variadic-func
+	./belajar-golang-modules
+	./belajar-golang-standart-library
+	./belajar-golang-unit-testing
 )
