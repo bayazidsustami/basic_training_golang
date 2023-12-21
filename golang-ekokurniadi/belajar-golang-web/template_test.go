@@ -35,6 +35,30 @@ func SimpleHTMLDirectory(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "simple.gohtml", "hello from template")
 }
 
+type Page struct {
+	Title   string
+	Name    string
+	Address Address
+}
+
+type Address struct {
+	Street string
+}
+
+func SimpleHTMLDataStruct(w http.ResponseWriter, r *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/name.gohtml"))
+
+	// bisa pke map[][]
+	t.ExecuteTemplate(w, "name.gohtml", Page{
+		Title: "Template Data Struct",
+		Name:  "bay",
+		Address: Address{
+			Street: "Jl. Jalan",
+		},
+	})
+
+}
+
 //go:embed templates/*.gohtml
 var templates embed.FS
 
@@ -94,6 +118,20 @@ func TestSimpleHTMLDirectoryEmbed(t *testing.T) {
 	recorder := httptest.NewRecorder()
 
 	SimpleHTMLDirectoryEmbed(recorder, request)
+
+	body, err := io.ReadAll(recorder.Result().Body)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(body))
+}
+
+func TestSimpleHTMLDataStruct(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "http://localhost:8080", nil)
+	recorder := httptest.NewRecorder()
+
+	SimpleHTMLDataStruct(recorder, request)
 
 	body, err := io.ReadAll(recorder.Result().Body)
 	if err != nil {
