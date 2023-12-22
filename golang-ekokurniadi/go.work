@@ -37,4 +37,5 @@ use (
 	./belajar-golang-modules
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
+	./belajar-golang-http-router
 )
