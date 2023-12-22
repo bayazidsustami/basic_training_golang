@@ -9,11 +9,9 @@ import (
 	"testing"
 )
 
-var mytemplates = template.Must(template.New("post.gothml").ParseFiles("./templates/post.gohtml"))
-
 func TemplateAutoEscape(w http.ResponseWriter, r *http.Request) {
 
-	mytemplates.ExecuteTemplate(w, "post.gohtml", map[string]any{
+	mytemplate.ExecuteTemplate(w, "post.gohtml", map[string]any{
 		"Title": "Golang Auto Escape",
 		"Body":  "<p>Ini adalah body</body>",
 	})
@@ -21,7 +19,7 @@ func TemplateAutoEscape(w http.ResponseWriter, r *http.Request) {
 
 func TemplateAutoEscapeDisabled(w http.ResponseWriter, r *http.Request) {
 
-	mytemplates.ExecuteTemplate(w, "post.gohtml", map[string]any{
+	mytemplate.ExecuteTemplate(w, "post.gohtml", map[string]any{
 		"Title": "Golang Auto Escape",
 		"Body":  template.HTML("<p>Ini adalah body</body>"),
 	})
@@ -29,7 +27,7 @@ func TemplateAutoEscapeDisabled(w http.ResponseWriter, r *http.Request) {
 
 func TemplateAutoEscapeXss(w http.ResponseWriter, r *http.Request) {
 
-	mytemplates.ExecuteTemplate(w, "post.gohtml", map[string]any{
+	mytemplate.ExecuteTemplate(w, "post.gohtml", map[string]any{
 		"Title": "Golang Auto Escape",
 		"Body":  template.HTML(r.URL.Query().Get("body")),
 	})
