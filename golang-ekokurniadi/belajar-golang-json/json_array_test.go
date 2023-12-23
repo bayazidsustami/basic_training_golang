@@ -68,3 +68,16 @@ func TestJsonArrayComplexDecode(t *testing.T) {
 
 	fmt.Println(customer)
 }
+
+func TestJsonOnlyOneFieldDecode(t *testing.T) {
+	jsonStr := `[{"Street":"Jl jalan","Country":"INA","PostalCode":90233},{"Street":"Jl jalanan","Country":"MY","PostalCode":902324},{"Street":"Jl aja","Country":"SGP","PostalCode":902332}]`
+	jsonBytes := []byte(jsonStr)
+
+	address := &[]Address{}
+	err := json.Unmarshal(jsonBytes, address)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(address)
+}
