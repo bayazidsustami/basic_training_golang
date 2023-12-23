@@ -1,0 +1,24 @@
+{
+    "FirstName": "bayazid",
+    "MiddleName": "sustami",
+    "LastName": "M N",
+    "Age": 0,
+    "Hobbies": null,
+    "Addresses": [
+        {
+            "Street": "Jl jalan",
+            "Country": "INA",
+            "PostalCode": 90233
+        },
+        {
+            "Street": "Jl jalanan",
+            "Country": "MY",
+            "PostalCode": 902324
+        },
+        {
+            "Street": "Jl aja",
+            "Country": "SGP",
+            "PostalCode": 902332
+        }
+    ]
+}
