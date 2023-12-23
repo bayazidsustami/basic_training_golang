@@ -1,10 +1,6 @@
 go 1.21.3
 
 use (
-	./belajar-golang-database
-	./belajar-golang-embed
-	./belajar-golang-web
-	./belajar-golang-goroutine
 	./belajar-golang-context
 	./belajar-golang-dasar/belajar-golang-array
 	./belajar-golang-dasar/belajar-golang-basic
@@ -34,8 +30,13 @@ use (
 	./belajar-golang-dasar/belajar-golang-type-declaration
 	./belajar-golang-dasar/belajar-golang-variable
 	./belajar-golang-dasar/belajar-golang-variadic-func
+	./belajar-golang-database
+	./belajar-golang-embed
+	./belajar-golang-goroutine
+	./belajar-golang-http-router
+	./belajar-golang-json
 	./belajar-golang-modules
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
-	./belajar-golang-http-router
+	./belajar-golang-web
 )
