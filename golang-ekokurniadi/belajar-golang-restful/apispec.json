@@ -52,12 +52,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type":"object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string"
-                                    }
-                                }
+                                "$ref": "#/components/schemas/CreateOrUpdateCategory"
                             }
                         }
                     }
@@ -96,9 +91,61 @@
                     {
                         "name": "categoryId",
                         "in": "path",
-                        "description": "Category ID"
+                        "description": "Category ID",
+                        "schema":{
+                            "type": "string"
+                        },
+                        "required": true
                     }
                 ],
+                "responses": {
+                    "200":{
+                        "description": "Success get category",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties": {
+                                        "code":{
+                                            "type": "number"
+                                        },
+                                        "status":{
+                                            "type": "string"
+                                        },
+                                        "data":{
+                                            "$ref": "#/components/schemas/Category"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags": ["Category API"],
+                "summary": "Update Cateogry API",
+                "description": "Update Cateogry API",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category ID",
+                        "schema":{
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateCategory"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200":{
                         "description": "Success get category",
@@ -127,6 +174,14 @@
     },
     "components": {
         "schemas": {
+            "CreateOrUpdateCategory":{
+                "type":"object",
+                "properties": {
+                    "name":{
+                        "type": "string"
+                    }
+                }
+            },
             "Category":{
                 "type": "object",
                 "properties":{
