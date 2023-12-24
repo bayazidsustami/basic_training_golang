@@ -16,6 +16,9 @@
                 "tags":["Category API"],
                 "description": "List All Categories",
                 "summary": "List All Categories",
+                "security": [{
+                    "CategoryAuth":[]
+                }],
                 "responses" :{
                     "200" : {
                         "description": "Success get all categories",
@@ -48,6 +51,9 @@
                 "tags":["Category API"],
                 "description": "crate new category",
                 "summary": "List All Categories",
+                "security": [{
+                    "CategoryAuth":[]
+                }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -87,6 +93,9 @@
                 "tags": ["Cateogry API"],
                 "summary": "Get category by id",
                 "description": "Get category by id",
+                "security": [{
+                    "CategoryAuth":[]
+                }],
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -126,6 +135,9 @@
                 "tags": ["Category API"],
                 "summary": "Update Cateogry API",
                 "description": "Update Cateogry API",
+                "security": [{
+                    "CategoryAuth":[]
+                }],
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -174,6 +186,9 @@
                 "tags": ["Cateogry API"],
                 "summary": "Delete category by id",
                 "description": "Delete category by id",
+                "security": [{
+                    "CategoryAuth":[]
+                }],
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -209,6 +224,14 @@
         }
     },
     "components": {
+        "securitySchemes": {
+            "CategoryAuth":{
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Key",
+                "description": "Authentication for category API"
+            }
+        },
         "schemas": {
             "CreateOrUpdateCategory":{
                 "type":"object",
