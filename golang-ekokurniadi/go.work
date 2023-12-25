@@ -36,6 +36,7 @@ use (
 	./belajar-golang-http-router
 	./belajar-golang-json
 	./belajar-golang-modules
+	./belajar-golang-restful
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
 	./belajar-golang-web
