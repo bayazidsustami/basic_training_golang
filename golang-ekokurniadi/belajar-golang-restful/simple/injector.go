@@ -3,7 +3,12 @@
 
 package simple
 
-import "github.com/google/wire"
+import (
+	"io"
+	"os"
+
+	"github.com/google/wire"
+)
 
 func InitializeService(isError bool) (*SimpleService, error) {
 	wire.Build(
@@ -63,5 +68,10 @@ func IntitializeFooBarUsingvalue() *FooBar {
 		fooBarSet,
 		wire.Struct(new(FooBar), "*"),
 	)
+	return nil
+}
+
+func IntitializeReader() io.Reader {
+	wire.Build(wire.InterfaceValue(new(io.Reader), os.Stdin))
 	return nil
 }
