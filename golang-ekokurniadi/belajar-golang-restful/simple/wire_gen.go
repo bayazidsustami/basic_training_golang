@@ -74,6 +74,12 @@ var (
 	_wireFileValue = os.Stdin
 )
 
+func IntializeConfiguration() *Configuration {
+	application := NewApplication()
+	configuration := application.Configuration
+	return configuration
+}
+
 // injector.go:
 
 var fooSet = wire.NewSet(NewFooRepository, NewFooService)
