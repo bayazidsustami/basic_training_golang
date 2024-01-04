@@ -50,7 +50,7 @@ var fooBarSet = wire.NewSet(
 	NewBar,
 )
 
-func IntitializeFooBar() *FooBar {
+func InititializeFooBar() *FooBar {
 	wire.Build(
 		fooBarSet,
 		wire.Struct(new(FooBar), "Foo", "Bar"),
@@ -63,7 +63,7 @@ var fooBarValueSet = wire.NewSet(
 	wire.Value(&Bar{}),
 )
 
-func IntitializeFooBarUsingvalue() *FooBar {
+func InititializeFooBarUsingvalue() *FooBar {
 	wire.Build(
 		fooBarSet,
 		wire.Struct(new(FooBar), "*"),
@@ -71,15 +71,20 @@ func IntitializeFooBarUsingvalue() *FooBar {
 	return nil
 }
 
-func IntitializeReader() io.Reader {
+func InititializeReader() io.Reader {
 	wire.Build(wire.InterfaceValue(new(io.Reader), os.Stdin))
 	return nil
 }
 
-func IntializeConfiguration() *Configuration {
+func InitializeConfiguration() *Configuration {
 	wire.Build(
 		NewApplication,
 		wire.FieldsOf(new(*Application), "Configuration"),
 	)
 	return nil
+}
+
+func InitializeConnection(name string) (*Connection, func()) {
+	wire.Build(NewConnection, NewFile)
+	return nil, nil
 }
