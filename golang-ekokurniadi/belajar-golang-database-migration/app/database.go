@@ -17,6 +17,9 @@ func NewDB() *sql.DB {
 
 	//migration command
 	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations up
+	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations down
+	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations up 2 --migrate to two version
+	// migrate create -ext sql -dir db/migrations create_table_category -- create migration file
 
 	return db
 }
