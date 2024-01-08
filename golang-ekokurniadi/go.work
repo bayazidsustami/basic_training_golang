@@ -40,4 +40,5 @@ use (
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
 	./belajar-golang-web
+	./belajar-golang-logging
 )
