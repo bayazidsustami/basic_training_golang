@@ -19,6 +19,8 @@ func NewDB() *sql.DB {
 	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations up
 	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations down
 	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations up 2 --migrate to two version
+	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations version -> get latest version
+	//migrate -database "mysql://root:@tcp(localhost:3306)/belajar_golang_database_migration" -path db/migrations force 20240108151351 -> rollback dirty state
 	// migrate create -ext sql -dir db/migrations create_table_category -- create migration file
 
 	return db
