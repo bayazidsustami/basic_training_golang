@@ -35,7 +35,7 @@ func InitializedServer() *http.Server {
 		app.NewRouter,
 		wire.Bind(new(http.Handler), new(*httprouter.Router)),
 		middleware.NewAuthMiddleware,
-		NewServer,
+		app.NewServer,
 	)
 	return nil
 }

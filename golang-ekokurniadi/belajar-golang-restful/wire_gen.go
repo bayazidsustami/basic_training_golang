@@ -17,10 +17,6 @@ import (
 	"net/http"
 )
 
-import (
-	_ "github.com/go-sql-driver/mysql"
-)
-
 // Injectors from injector.go:
 
 func InitializedServer() *http.Server {
@@ -32,7 +28,7 @@ func InitializedServer() *http.Server {
 	categoryController := controller.NewCategoryController(categoryService)
 	router := app.NewRouter(categoryController)
 	authMiddleware := middleware.NewAuthMiddleware(router)
-	server := NewServer(authMiddleware)
+	server := app.NewServer(authMiddleware)
 	return server
 }
 
