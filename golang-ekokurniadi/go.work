@@ -31,14 +31,15 @@ use (
 	./belajar-golang-dasar/belajar-golang-variable
 	./belajar-golang-dasar/belajar-golang-variadic-func
 	./belajar-golang-database
+	./belajar-golang-database-migration
 	./belajar-golang-embed
 	./belajar-golang-goroutine
 	./belajar-golang-http-router
 	./belajar-golang-json
+	./belajar-golang-logging
 	./belajar-golang-modules
 	./belajar-golang-restful
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
 	./belajar-golang-web
-	./belajar-golang-logging
 )
