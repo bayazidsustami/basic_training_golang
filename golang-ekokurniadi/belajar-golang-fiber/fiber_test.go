@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bytes"
+	_ "embed"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -122,5 +125,40 @@ func TestFormRequest(t *testing.T) {
 	byte, err := io.ReadAll(response.Body)
 	assert.Nil(t, err)
 	assert.Equal(t, "Hello bay", string(byte))
+}
 
+//go:embed source/contoh.txt
+var contohFile []byte
+
+func TestFormUpload(t *testing.T) {
+	app := fiber.New()
+	app.Post("/upload", func(c *fiber.Ctx) error {
+		file, err := c.FormFile("file")
+		if err != nil {
+			return err
+		}
+
+		err = c.SaveFile(file, "./target/"+file.Filename)
+		if err != nil {
+			return err
+		}
+
+		return c.SendString("upload success")
+	})
+
+	bodyRequest := new(bytes.Buffer)
+	writer := multipart.NewWriter(bodyRequest)
+	file, _ := writer.CreateFormFile("file", "contoh.txt")
+	file.Write(contohFile)
+	writer.Close()
+
+	request := httptest.NewRequest(http.MethodPost, "/upload", bodyRequest)
+	request.Header.Set("Content-Type", writer.FormDataContentType())
+	response, err := app.Test(request)
+	assert.Nil(t, err)
+	assert.Equal(t, 200, response.StatusCode)
+
+	byte, err := io.ReadAll(response.Body)
+	assert.Nil(t, err)
+	assert.Equal(t, "upload success", string(byte))
 }
