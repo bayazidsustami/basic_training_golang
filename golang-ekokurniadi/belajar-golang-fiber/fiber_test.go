@@ -83,5 +83,23 @@ func TestHttpRequest(t *testing.T) {
 	byte, err := io.ReadAll(response.Body)
 	assert.Nil(t, err)
 	assert.Equal(t, "Hello bay bayazid", string(byte))
+}
+
+func TestRouteParameter(t *testing.T) {
+	app := fiber.New()
+	app.Get("/users/:userId/orders/:orderId", func(c *fiber.Ctx) error {
+		userId := c.Params("userId")
+		orderId := c.Params("orderId")
+		return c.SendString("Get Order " + orderId + " from user " + userId)
+	})
+
+	request := httptest.NewRequest(http.MethodGet, "/users/2/orders/1", nil)
+	response, err := app.Test(request)
+	assert.Nil(t, err)
+	assert.Equal(t, 200, response.StatusCode)
+
+	byte, err := io.ReadAll(response.Body)
+	assert.Nil(t, err)
+	assert.Equal(t, "Get Order 1 from user 2", string(byte))
 
 }
