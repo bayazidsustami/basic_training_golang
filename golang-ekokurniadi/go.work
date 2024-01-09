@@ -33,6 +33,7 @@ use (
 	./belajar-golang-database
 	./belajar-golang-database-migration
 	./belajar-golang-embed
+	./belajar-golang-fiber
 	./belajar-golang-goroutine
 	./belajar-golang-http-router
 	./belajar-golang-json
@@ -41,6 +42,6 @@ use (
 	./belajar-golang-restful
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
-	./belajar-golang-web
 	./belajar-golang-viper
+	./belajar-golang-web
 )
