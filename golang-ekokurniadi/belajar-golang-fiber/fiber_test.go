@@ -4,6 +4,7 @@ import (
 	"bytes"
 	_ "embed"
 	"encoding/json"
+	"errors"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -15,7 +16,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var app *fiber.App = fiber.New()
+var app *fiber.App = fiber.New(fiber.Config{
+	ErrorHandler: func(c *fiber.Ctx, err error) error {
+		c.Status(fiber.StatusInternalServerError)
+		return c.SendString("Error " + err.Error())
+	},
+})
 
 func TestRoutingHelloWorld(t *testing.T) {
 	app.Get("/", func(c *fiber.Ctx) error {
@@ -324,4 +330,19 @@ func TestStatic(t *testing.T) {
 	byte, err := io.ReadAll(response.Body)
 	assert.Nil(t, err)
 	assert.Equal(t, "this is sample file", string(byte))
+}
+
+func TestErrorHandling(t *testing.T) {
+	app.Get("/error", func(c *fiber.Ctx) error {
+		return errors.New("ups")
+	})
+
+	request := httptest.NewRequest(http.MethodGet, "/error", nil)
+	response, err := app.Test(request)
+	assert.Nil(t, err)
+	assert.Equal(t, 500, response.StatusCode)
+
+	byte, err := io.ReadAll(response.Body)
+	assert.Nil(t, err)
+	assert.Equal(t, "Error ups", string(byte))
 }
