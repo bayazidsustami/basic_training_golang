@@ -15,6 +15,24 @@ func main() {
 		Prefork:      true,
 	})
 
+	app.Use("/api", func(ctx *fiber.Ctx) error {
+		fmt.Println("middleware api before")
+		err := ctx.Next()
+		fmt.Println("middleware api after")
+		return err
+	})
+
+	app.Use(func(ctx *fiber.Ctx) error {
+		fmt.Println("middleware before")
+		err := ctx.Next()
+		fmt.Println("middleware after")
+		return err
+	})
+
+	app.Get("/api/hello", func(c *fiber.Ctx) error {
+		return c.SendString("Hello API's")
+	})
+
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello World")
 	})
