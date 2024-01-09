@@ -64,3 +64,24 @@ func TestFiberCtxDefaultQuery(t *testing.T) {
 	assert.Equal(t, "Hello Guest", string(byte))
 
 }
+
+func TestHttpRequest(t *testing.T) {
+	app := fiber.New()
+	app.Get("/request", func(c *fiber.Ctx) error {
+		first := c.Get("firstname")   //header
+		last := c.Cookies("lastname") //cookies
+		return c.SendString("Hello " + first + " " + last)
+	})
+
+	request := httptest.NewRequest(http.MethodGet, "/request", nil)
+	request.Header.Set("firstname", "bay")
+	request.AddCookie(&http.Cookie{Name: "lastname", Value: "bayazid"})
+	response, err := app.Test(request)
+	assert.Nil(t, err)
+	assert.Equal(t, 200, response.StatusCode)
+
+	byte, err := io.ReadAll(response.Body)
+	assert.Nil(t, err)
+	assert.Equal(t, "Hello bay bayazid", string(byte))
+
+}
