@@ -371,3 +371,13 @@ func TestTemplate(t *testing.T) {
 	assert.Contains(t, string(byte), "Hello Header")
 	assert.Contains(t, string(byte), "Hello Content")
 }
+
+func TestClient(t *testing.T) {
+	client := fiber.AcquireClient()
+	defer fiber.ReleaseClient(client)
+	agent := client.Get("https://example.com/")
+	status, response, errs := agent.String()
+	assert.Nil(t, errs)
+	assert.Equal(t, 200, status)
+	assert.Contains(t, response, "Example Domain")
+}
