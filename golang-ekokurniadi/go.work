@@ -35,6 +35,7 @@ use (
 	./belajar-golang-embed
 	./belajar-golang-fiber
 	./belajar-golang-generic
+	./belajar-golang-gorm
 	./belajar-golang-goroutine
 	./belajar-golang-http-router
 	./belajar-golang-json
