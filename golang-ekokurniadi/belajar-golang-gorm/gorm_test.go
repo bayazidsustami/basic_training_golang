@@ -79,3 +79,20 @@ func TestScanRowsSql(t *testing.T) {
 
 	assert.Equal(t, 4, len(samples))
 }
+
+func TestCreateUser(t *testing.T) {
+	user := User{
+		ID:       "1",
+		Password: "rahasia",
+		Name: Name{
+			FirstName:  "bayazid",
+			MiddleName: "sustami",
+			LastName:   "Mohammad Nasir",
+		},
+		Information: "ini akan di ignore",
+	}
+
+	response := db.Create(&user)
+	assert.Nil(t, response.Error)
+	assert.Equal(t, int64(1), response.RowsAffected)
+}
