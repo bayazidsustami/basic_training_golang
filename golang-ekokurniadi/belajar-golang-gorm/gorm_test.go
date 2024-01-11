@@ -169,5 +169,19 @@ func TestManualTransactionSuccess(t *testing.T) {
 	if err == nil {
 		tx.Commit()
 	}
+}
 
+func TestManualTransactionError(t *testing.T) {
+	tx := db.Begin()
+	defer tx.Rollback()
+
+	err := tx.Create(&User{ID: "15", Password: "Rahasia", Name: Name{FirstName: "User15"}}).Error
+	assert.Nil(t, err)
+
+	err = tx.Create(&User{ID: "14", Password: "Rahasia", Name: Name{FirstName: "User14"}}).Error
+	assert.NotNil(t, err)
+
+	if err == nil {
+		tx.Commit()
+	}
 }
