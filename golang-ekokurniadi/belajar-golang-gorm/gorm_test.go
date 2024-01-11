@@ -282,3 +282,16 @@ func TestQueryOrderLimitOffset(t *testing.T) {
 	assert.Equal(t, 5, len(users))
 	assert.Equal(t, "14", users[0].ID)
 }
+
+type UserResponse struct {
+	ID        string
+	FirstName string
+	LastName  string
+}
+
+func TestQueryNonModel(t *testing.T) {
+	var users []UserResponse
+	result := db.Model(&User{}).Select("id", "first_name", "last_name").Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 14, len(users))
+}
