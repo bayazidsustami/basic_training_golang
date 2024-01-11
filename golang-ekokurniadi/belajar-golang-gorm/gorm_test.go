@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"gorm.io/gorm"
 )
 
 var db = OpenConnection()
@@ -113,4 +114,60 @@ func TestBatchInsert(t *testing.T) {
 	result := db.Create(users)
 	assert.Nil(t, result.Error)
 	assert.Equal(t, 8, int(result.RowsAffected))
+}
+
+func TestTransactionSuccess(t *testing.T) {
+	err := db.Transaction(func(tx *gorm.DB) error {
+		err := tx.Create(&User{ID: "10", Password: "Rahasia", Name: Name{FirstName: "User10"}}).Error
+		if err != nil {
+			return err
+		}
+
+		err = tx.Create(&User{ID: "11", Password: "Rahasia", Name: Name{FirstName: "User11"}}).Error
+		if err != nil {
+			return err
+		}
+
+		err = tx.Create(&User{ID: "12", Password: "Rahasia", Name: Name{FirstName: "User12"}}).Error
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+
+	assert.Nil(t, err)
+}
+
+func TestTransactionError(t *testing.T) {
+	err := db.Transaction(func(tx *gorm.DB) error {
+		err := tx.Create(&User{ID: "13", Password: "Rahasia", Name: Name{FirstName: "User13"}}).Error
+		if err != nil {
+			return err
+		}
+
+		err = tx.Create(&User{ID: "11", Password: "Rahasia", Name: Name{FirstName: "User11"}}).Error
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	assert.NotNil(t, err)
+}
+
+func TestManualTransactionSuccess(t *testing.T) {
+	tx := db.Begin()
+	defer tx.Rollback()
+
+	err := tx.Create(&User{ID: "13", Password: "Rahasia", Name: Name{FirstName: "User13"}}).Error
+	assert.Nil(t, err)
+
+	err = tx.Create(&User{ID: "14", Password: "Rahasia", Name: Name{FirstName: "User14"}}).Error
+	assert.Nil(t, err)
+
+	if err == nil {
+		tx.Commit()
+	}
+
 }
