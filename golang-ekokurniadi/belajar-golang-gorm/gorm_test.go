@@ -386,3 +386,18 @@ func TestOnConflict(t *testing.T) {
 	}).Create(&user)
 	assert.Nil(t, result.Error)
 }
+
+func TestDelete(t *testing.T) {
+	var user User
+	err := db.Take(&user, "id = ?", "88").Error
+	assert.Nil(t, err)
+
+	err = db.Delete(&user).Error
+	assert.Nil(t, err)
+
+	err = db.Delete(&User{}, "id = ?", "99").Error
+	assert.Nil(t, err)
+
+	err = db.Where("id = ?", "77").Delete(&User{}).Error
+	assert.Nil(t, err)
+}
