@@ -211,3 +211,74 @@ func TestQueryAllObjects(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, 5, len(users))
 }
+
+func TestQueryCondition(t *testing.T) {
+	var users []User
+	result := db.Where("first_name like ?", "%User%").
+		Where("password = ?", "rahasia").
+		Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 13, len(users))
+}
+
+func TestQueryOrOperator(t *testing.T) {
+	var users []User
+	result := db.Where("first_name like ?", "%User%").
+		Or("password = ?", "rahasia").
+		Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 14, len(users))
+}
+
+func TestQueryNotOperator(t *testing.T) {
+	var users []User
+	result := db.Not("first_name like ?", "%User%").
+		Where("password = ?", "rahasia").
+		Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 1, len(users))
+}
+
+func TestSelectFields(t *testing.T) {
+	var users []User
+	result := db.Select("id", "first_name").Find(&users)
+	assert.Nil(t, result.Error)
+	for _, user := range users {
+		assert.NotNil(t, user.ID)
+		assert.NotEmpty(t, user.Name.FirstName)
+	}
+	assert.Equal(t, 14, len(users))
+}
+
+func TestStructCondition(t *testing.T) {
+	userCondition := User{
+		Name: Name{
+			FirstName: "User2",
+		},
+		Password: "rahasia",
+	}
+
+	var users []User
+	result := db.Where(userCondition).Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 1, len(users))
+}
+
+func TestMapCondition(t *testing.T) {
+	mapCondition := map[string]any{
+		"middle_name": "",
+	}
+
+	var users []User
+	result := db.Where(mapCondition).Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 13, len(users))
+}
+
+func TestQueryOrderLimitOffset(t *testing.T) {
+	var users []User
+	result := db.Order("id asc, first_name desc").Limit(5).Offset(5).Find(&users)
+	assert.Nil(t, result.Error)
+	assert.Equal(t, 5, len(users))
+	assert.Equal(t, "14", users[0].ID)
+}
