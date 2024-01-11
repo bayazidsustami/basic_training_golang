@@ -6,6 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 var db = OpenConnection()
@@ -340,4 +341,48 @@ func TestInsertAutoIncrement(t *testing.T) {
 		assert.Nil(t, result.Error)
 		assert.NotEqual(t, 0, userLog.ID)
 	}
+}
+
+func TestSaveOrUpdate(t *testing.T) {
+	userLog := UserLog{
+		UserId: "1",
+		Action: "Test Action",
+	}
+
+	err := db.Save(&userLog).Error
+	assert.Nil(t, err)
+
+	userLog.UserId = "2"
+	err = db.Save(&userLog).Error
+	assert.Nil(t, err)
+}
+
+func TestSaveOrUpdateNonAutoIncrement(t *testing.T) {
+	user := User{
+		ID: "99",
+		Name: Name{
+			FirstName: "User99",
+		},
+	}
+
+	result := db.Save(&user)
+	assert.Nil(t, result.Error)
+
+	user.Name.FirstName = "User99 updated"
+	result = db.Save(&user)
+	assert.Nil(t, result.Error)
+}
+
+func TestOnConflict(t *testing.T) {
+	user := User{
+		ID: "88",
+		Name: Name{
+			FirstName: "User88",
+		},
+	}
+
+	result := db.Clauses(clause.OnConflict{
+		UpdateAll: true,
+	}).Create(&user)
+	assert.Nil(t, result.Error)
 }
