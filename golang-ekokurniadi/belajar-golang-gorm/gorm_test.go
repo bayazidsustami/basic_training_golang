@@ -691,3 +691,21 @@ func TestAssociationClear(t *testing.T) {
 	err = db.Model(&product).Association("LikedByUsers").Clear()
 	assert.Nil(t, err)
 }
+
+func TestPreloadingWithCondition(t *testing.T) {
+	var user User
+	err := db.Preload("Wallet", "balance > ?", 1000000).Take(&user, "id = ?", "1").Error
+	assert.Nil(t, err)
+}
+
+func TestPreloadingNested(t *testing.T) {
+	var wallet Wallet
+	err := db.Preload("User.Addresses").Find(&wallet, "id = ?", "1").Error
+	assert.Nil(t, err)
+}
+
+func TestPreloadAll(t *testing.T) {
+	var user User
+	err := db.Preload(clause.Associations).First(&user, "id = ?", "1").Error
+	assert.Nil(t, err)
+}
