@@ -1,6 +1,7 @@
 package belajargolanggorm
 
 import (
+	"fmt"
 	"strconv"
 	"testing"
 
@@ -555,5 +556,29 @@ func TestTakePreloadJoinOneToMany(t *testing.T) {
 	err := db.Model(&User{}).Preload("Addresses").
 		Joins("Wallet").
 		Take(&user, "users.id = ?", "50").Error
+	assert.Nil(t, err)
+}
+
+func TestBelongsTo(t *testing.T) {
+	fmt.Println("preload")
+	var addresses []Address
+	err := db.Model(&Address{}).Preload("User").Find(&addresses).Error
+	assert.Nil(t, err)
+
+	fmt.Println("joins")
+	addresses = []Address{}
+	err = db.Model(&Address{}).Joins("User").Find(&addresses).Error
+	assert.Nil(t, err)
+}
+
+func TestBelongsToWallet(t *testing.T) {
+	fmt.Println("preload")
+	var wallets []Wallet
+	err := db.Model(&Wallet{}).Preload("User").Find(&wallets).Error
+	assert.Nil(t, err)
+
+	fmt.Println("joins")
+	wallets = []Wallet{}
+	err = db.Model(&Wallet{}).Joins("User").Find(&wallets).Error
 	assert.Nil(t, err)
 }
