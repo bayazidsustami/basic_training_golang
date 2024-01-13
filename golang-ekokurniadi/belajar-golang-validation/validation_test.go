@@ -318,3 +318,25 @@ func TestValidationBasicMap(t *testing.T) {
 	err := validate.Struct(request)
 	assert.NotNil(t, err)
 }
+
+func TestValidationAlias(t *testing.T) {
+	validate := validator.New()
+	validate.RegisterAlias("varchar", "required,max=255")
+
+	type Seller struct {
+		Id     string `validate:"varchar,min=5"`
+		Name   string `validate:"varchar"`
+		Owner  string `validate:"varchar"`
+		Slogan string `validate:"varchar"`
+	}
+
+	seller := Seller{
+		Id:     "123",
+		Name:   "",
+		Owner:  "",
+		Slogan: "",
+	}
+
+	err := validate.Struct(seller)
+	assert.NotNil(t, err)
+}
