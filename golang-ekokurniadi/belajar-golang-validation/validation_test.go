@@ -163,3 +163,42 @@ func TestValidationCollection(t *testing.T) {
 	err := validate.Struct(request)
 	assert.NotNil(t, err)
 }
+
+func TestValidationBasicCollection(t *testing.T) {
+	type Address struct {
+		City    string `validate:"required"`
+		Country string `validate:"required"`
+	}
+
+	type User struct {
+		Id        string    `validate:"required"`
+		Name      string    `validate:"required"`
+		Addresses []Address `validate:"required,dive"`
+		Hobbies   []string  `validate:"required,dive,required,min=3"`
+	}
+
+	validate := validator.New()
+	request := User{
+		Id:   "",
+		Name: "",
+		Addresses: []Address{
+			{
+				City:    "",
+				Country: "",
+			},
+			{
+				City:    "",
+				Country: "",
+			},
+		},
+		Hobbies: []string{
+			"Gaming",
+			"Coding",
+			"",
+			"X",
+		},
+	}
+
+	err := validate.Struct(request)
+	assert.NotNil(t, err)
+}
