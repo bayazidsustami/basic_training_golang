@@ -357,7 +357,8 @@ func MustValidUsername(field validator.FieldLevel) bool {
 
 func TestCustomValidationFunction(t *testing.T) {
 	validate := validator.New()
-	validate.RegisterValidation("username", MustValidUsername)
+	err := validate.RegisterValidation("username", MustValidUsername)
+	assert.Nil(t, err)
 
 	type LoginRequest struct {
 		Username string `validate:"required,username"`
@@ -369,6 +370,6 @@ func TestCustomValidationFunction(t *testing.T) {
 		Password: "",
 	}
 
-	err := validate.Struct(request)
+	err = validate.Struct(request)
 	assert.NotNil(t, err)
 }
