@@ -44,6 +44,7 @@ use (
 	./belajar-golang-restful
 	./belajar-golang-standart-library
 	./belajar-golang-unit-testing
+	./belajar-golang-validation
 	./belajar-golang-viper
 	./belajar-golang-web
 )
