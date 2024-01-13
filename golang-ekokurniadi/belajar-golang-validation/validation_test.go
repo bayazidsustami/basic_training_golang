@@ -88,7 +88,7 @@ func TestValidationErrors(t *testing.T) {
 	}
 }
 
-func TestStructCrossField(t *testing.T) {
+func TestValidationStructCrossField(t *testing.T) {
 	type RegisterUser struct {
 		Username        string `validate:"required,email"`
 		Password        string `validate:"required,min=5"`
