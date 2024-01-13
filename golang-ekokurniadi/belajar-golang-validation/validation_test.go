@@ -409,3 +409,19 @@ func TestCustomValidationParameter(t *testing.T) {
 	err := validate.Struct(request)
 	assert.NotNil(t, err)
 }
+
+func TestValidationOrRule(t *testing.T) {
+	type Login struct {
+		Username string `validate:"required,email|numeric"`
+		Password string `validate:"required"`
+	}
+
+	request := Login{
+		Username: "12345re",
+		Password: "ekoo",
+	}
+
+	validate := validator.New()
+	err := validate.Struct(request)
+	assert.NotNil(t, err)
+}
