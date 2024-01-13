@@ -403,11 +403,9 @@ func TestCustomValidationParameter(t *testing.T) {
 
 	request := Login{
 		Phone: "0904190424",
-		Pin:   "123123",
+		Pin:   "123",
 	}
 
 	err := validate.Struct(request)
-	if err != nil {
-		fmt.Println(err)
-	}
+	assert.NotNil(t, err)
 }
