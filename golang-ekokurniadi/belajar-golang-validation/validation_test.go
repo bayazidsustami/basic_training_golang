@@ -2,6 +2,7 @@ package belajargolangvalidation
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/go-playground/validator/v10"
@@ -338,5 +339,36 @@ func TestValidationAlias(t *testing.T) {
 	}
 
 	err := validate.Struct(seller)
+	assert.NotNil(t, err)
+}
+
+func MustValidUsername(field validator.FieldLevel) bool {
+	value, ok := field.Field().Interface().(string)
+	if ok {
+		if value != strings.ToUpper(value) {
+			return false
+		}
+		if len(value) < 5 {
+			return false
+		}
+	}
+	return true
+}
+
+func TestCustomValidationFunction(t *testing.T) {
+	validate := validator.New()
+	validate.RegisterValidation("username", MustValidUsername)
+
+	type LoginRequest struct {
+		Username string `validate:"required,username"`
+		Password string `validate:"required"`
+	}
+
+	request := LoginRequest{
+		Username: "EKOKK",
+		Password: "",
+	}
+
+	err := validate.Struct(request)
 	assert.NotNil(t, err)
 }
