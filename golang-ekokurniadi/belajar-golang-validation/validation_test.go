@@ -48,3 +48,19 @@ func TestTagParameter(t *testing.T) {
 	err := validate.Var(user, "required,numeric,min=5,max=10")
 	assert.NotNil(t, err)
 }
+
+func TestValidationStruct(t *testing.T) {
+	type LoginRequest struct {
+		Username string `validate:"required,email"`
+		Password string `validate:"required,min=5"`
+	}
+
+	validate := validator.New()
+	loginRequest := LoginRequest{
+		Username: "eko@example.com",
+		Password: "eko1234",
+	}
+
+	err := validate.Struct(loginRequest)
+	assert.Nil(t, err)
+}
