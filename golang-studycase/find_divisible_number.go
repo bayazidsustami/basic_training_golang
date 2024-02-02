@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	file, err := os.Open("divisible_number_test_case/divisible_number_test_case.in")
+	file, err := os.Open("test_case/divisible_number_test_case.in")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
