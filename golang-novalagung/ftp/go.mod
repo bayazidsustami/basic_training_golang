@@ -2,4 +2,7 @@ module ftp
 
 go 1.16
 
-require github.com/jlaffaye/ftp v0.0.0-20210307004419-5d4190119067 // indirect
+require (
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/jlaffaye/ftp v0.2.0
+)

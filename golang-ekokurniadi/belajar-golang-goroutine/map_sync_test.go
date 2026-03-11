@@ -7,7 +7,6 @@ import (
 )
 
 func AddToMap(group *sync.WaitGroup, data *sync.Map, value int) {
-	group.Add(1)
 	defer group.Done()
 
 	data.Store(value, value)
@@ -19,6 +18,7 @@ func TestSyncMap(t *testing.T) {
 	group := &sync.WaitGroup{}
 
 	for i := 0; i < 1000; i++ {
+		group.Add(1)
 		go AddToMap(group, data, i)
 	}
 

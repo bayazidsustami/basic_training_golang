@@ -1,6 +1,7 @@
 package belajar_golang_viper
 
 import (
+	"os"
 	"testing"
 
 	"github.com/spf13/viper"
@@ -69,6 +70,7 @@ func TestENV(t *testing.T) {
 }
 
 func TestENVVars(t *testing.T) {
+	os.Setenv("FROM_ENV", "Hello")
 	config := viper.New()
 	//config.SetConfigName("config")
 	//config.SetConfigType("yaml")

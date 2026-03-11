@@ -85,7 +85,7 @@ func stringToByte() {
 	var c int64 = int64('o')
 	fmt.Println(c)
 
-	var d string = string(111)
+	var d string = string(rune(111))
 	fmt.Println(d)
 }
 

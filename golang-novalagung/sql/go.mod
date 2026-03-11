@@ -1,5 +1,7 @@
 module sqlstry
 
-go 1.16
+go 1.24.0
 
-require github.com/go-sql-driver/mysql v1.6.0 // indirect
+require github.com/go-sql-driver/mysql v1.9.3
+
+require filippo.io/edwards25519 v1.2.0 // indirect
