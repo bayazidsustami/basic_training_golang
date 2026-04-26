@@ -1,10 +1,10 @@
 module belajar-golang-generic
 
-go 1.21.3
+go 1.25.0
 
 require (
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc
+	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f
 )
 
 require (

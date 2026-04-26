@@ -1,0 +1,12 @@
+{"level":"info","msg":"this is infor","time":"2026-04-26T09:46:13+07:00"}
+{"level":"warning","msg":"this is warning","time":"2026-04-26T09:46:13+07:00"}
+{"level":"error","msg":"this is error","time":"2026-04-26T09:46:13+07:00"}
+time="2026-04-26T09:46:13+07:00" level=info msg="this is infor"
+time="2026-04-26T09:46:13+07:00" level=warning msg="this is warning"
+time="2026-04-26T09:46:13+07:00" level=error msg="this is error"
+{"level":"info","msg":"this is infor","time":"2026-04-26T09:52:22+07:00"}
+{"level":"warning","msg":"this is warning","time":"2026-04-26T09:52:22+07:00"}
+{"level":"error","msg":"this is error","time":"2026-04-26T09:52:22+07:00"}
+time="2026-04-26T09:52:22+07:00" level=info msg="this is infor"
+time="2026-04-26T09:52:22+07:00" level=warning msg="this is warning"
+time="2026-04-26T09:52:22+07:00" level=error msg="this is error"
