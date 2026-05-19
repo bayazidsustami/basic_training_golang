@@ -3,6 +3,6 @@ module jwt-auth
 go 1.16
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/novalagung/gubrak/v2 v2.0.2
 )
